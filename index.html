@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AFLOR · Inteligência Aplicada</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="topbar">
+  <a class="brand" href="#">
+    <img class="brand-logo" src="../05_assets/logo-aflor-dark.png" alt="AFLOR"/>
+  </a>
+  <div class="topbar-actions">
+    <a href="https://meetings.hubspot.com/analder" target="_blank" class="btn-topbar btn-topbar-primary">
+      📅 Agende uma demonstração →
+    </a>
+    <a href="https://aflorsa.com.br/" target="_blank" class="btn-topbar btn-topbar-ghost">
+      <span class="btn-text-desktop">🌐 Conheça nossas soluções →</span>
+      <span class="btn-text-mobile">Conhecer AFLOR →</span>
+    </a>
+  </div>
+</div>
+<div class="hero-strip">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-title">Inteligência ESG AFLOR</div>
+      <div class="hero-sub">Um diagnóstico rápido para identificar passivos ambientais, trabalhistas e de governança que podem afetar margem, continuidade e acesso a novos contratos.</div>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="config-panel">
+    <div class="config-header">
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#FFFFFF" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      <span class="config-header-title">
+        Índice de Risco Operacional · I-ESG
+        <span class="field-help">
+          <button type="button"
+                  class="field-help-trigger"
+                  aria-label="Ajuda sobre o I-ESG"
+                  aria-describedby="iesg-help">?</button>
+
+          <span class="field-help-box"
+                id="iesg-help"
+                role="tooltip">
+            O I-ESG utiliza os critérios abaixo para avaliar riscos ambientais, sociais, de governança e continuidade operacional.
+          </span>
+        </span>
+      </span>
+      <span class="config-header-sub">Preencha com base no cenário atual</span>
+    </div>
+    <div class="config-body">
+      <div class="lead-section">
+        <div class="lead-section-title">
+          👤 Identificação
+        </div>
+        <div class="lead-grid">
+          <div class="input-group">
+            <label class="input-label">Nome completo <span class="lead-required">*</span></label>
+            <input type="text" id="lead_nome" class="lead-input" placeholder="Seu nome completo" autocomplete="name" required/>
+          </div>
+          <input type="hidden" id="lead_cargo" value=""/>
+          <div class="input-group">
+            <label class="input-label">Empresa <span class="lead-required">*</span></label>
+            <input type="text" id="lead_empresa" class="lead-input" placeholder="Razão social ou nome fantasia" autocomplete="organization" required/>
+          </div>
+          <div class="input-group">
+            <label class="input-label">E-mail corporativo <span class="lead-required">*</span></label>
+            <input type="email" id="lead_email" class="lead-input" placeholder="seu@email.com.br" autocomplete="email" required/>
+          </div>
+          <div class="input-group">
+            <label class="input-label">Celular (WhatsApp) <span class="lead-required">*</span></label>
+            <input type="tel" id="lead_celular" class="lead-input" placeholder="(11) 99999 9999" autocomplete="tel" inputmode="numeric" maxlength="15" required/>
+          </div>
+        </div>
+      </div>
+      <div class="lead-section">
+        <div class="lead-section-title">
+          ⚙️ Parâmetros de Diagnóstico I-ESG
+        </div>
+        <div class="input-hint">Selecione a alternativa que melhor representa a realidade atual da empresa.</div>
+        <div class="config-grid">
+        <div class="input-group">
+          <label class="input-label">E1 · Resíduos e insumos</label>
+          <div class="input-hint">Como sua empresa controla resíduos, materiais descartados ou insumos utilizados na operação?</div>
+          <select id="E1" name="E1" class="input-field" required>
+            <option value="">Selecione uma opção</option>
+            <option value="0">Não existe controle formal, registro ou comprovação da destinação.</option>
+            <option value="50">Existe controle básico, mas sem rastreabilidade completa.</option>
+            <option value="100">Há registros, responsáveis definidos e comprovação da destinação quando aplicável.</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label class="input-label">E2 · Energia, água e recursos</label>
+          <div class="input-hint">Como sua empresa acompanha consumo de energia, água ou outros recursos operacionais?</div>
+          <select id="E2" name="E2" class="input-field" required>
+            <option value="">Selecione uma opção</option>
+            <option value="0">Apenas paga as contas, sem análise ou acompanhamento periódico.</option>
+            <option value="50">Acompanha custos ou variações, mas sem metas ou ações estruturadas.</option>
+            <option value="100">Monitora indicadores, define metas e executa ações para reduzir desperdícios.</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label class="input-label">S1 · Segurança e saúde ocupacional</label>
+          <div class="input-hint">Como sua empresa trata segurança, saúde ocupacional e documentação obrigatória?</div>
+          <select id="S1" name="S1" class="input-field" required>
+            <option value="">Selecione uma opção</option>
+            <option value="0">A gestão é informal; documentos, treinamentos ou controles não estão organizados.</option>
+            <option value="50">Existe documentação básica, mas a gestão é reativa.</option>
+            <option value="100">Há documentos, treinamentos, responsáveis e rotinas preventivas de acompanhamento.</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label class="input-label">S2 · Contratos e relações de trabalho</label>
+          <div class="input-hint">Como sua empresa controla contratos, vínculos e terceiros envolvidos na operação?</div>
+          <select id="S2" name="S2" class="input-field" required>
+            <option value="">Selecione uma opção</option>
+            <option value="0">Há informalidade relevante, contratos frágeis ou terceiros sem critérios claros.</option>
+            <option value="50">Os vínculos e contratos principais estão formalizados, mas há lacunas em terceiros, parceiros ou prestadores de serviço.</option>
+            <option value="100">Há contratos formais, critérios mínimos para terceiros e registros organizados.</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label class="input-label">G1 · Separação financeira</label>
+          <div class="input-hint">Como sua empresa separa as finanças do negócio das finanças pessoais dos sócios?</div>
+          <select id="G1" name="G1" class="input-field" required>
+            <option value="">Selecione uma opção</option>
+            <option value="0">Há mistura frequente entre contas pessoais e contas da empresa.</option>
+            <option value="50">As contas são separadas, mas a análise financeira ainda é pontual ou pouco gerencial.</option>
+            <option value="100">Existe separação clara, com relatórios gerenciais analisados periodicamente.</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label class="input-label">G2 · Regras, contratos e responsabilidades</label>
+          <div class="input-hint">Como sua empresa formaliza regras, responsabilidades e condutas esperadas?</div>
+          <select id="G2" name="G2" class="input-field" required>
+            <option value="">Selecione uma opção</option>
+            <option value="0">As regras são majoritariamente informais, sem documentação mínima.</option>
+            <option value="50">Existem documentos básicos, mas não são comunicados, revisados ou aplicados de forma regular.</option>
+            <option value="100">Há documentos, contratos e regras formais aplicados à equipe e parceiros relevantes.</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label class="input-label">G3 · Continuidade operacional</label>
+          <div class="input-hint">O que aconteceria se uma pessoa-chave se ausentasse da operação por uma semana ou mais?</div>
+          <select id="G3" name="G3" class="input-field" required>
+            <option value="">Selecione uma opção</option>
+            <option value="0">A operação ficaria paralisada ou perderia decisões críticas.</option>
+            <option value="50">A operação continuaria, mas com dificuldade, retrabalho ou centralização.</option>
+            <option value="100">Há processos documentados, responsáveis definidos e delegação suficiente.</option>
+          </select>
+        </div>
+        </div>
+      </div>
+      <label class="lead-lgpd">
+        <input type="checkbox" id="lead_lgpd"/>
+        <span>
+          Autorizo a <strong>AFLOR</strong> a utilizar os dados deste diagnóstico para contato e análise interna, em conformidade com a
+          <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank">LGPD (Lei nº 13.709/2018)</a>.
+          <span class="lead-required">*</span>
+        </span>
+      </label>
+      <div class="config-footer">
+        <div class="config-footer-left">
+          <button class="btn-calc" onclick="gerarDiagnostico()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Gerar Diagnóstico
+          </button>
+          <span class="config-note">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Atualiza automaticamente ao alterar qualquer campo
+          </span>
+        </div>
+        <button class="btn-pdf" onclick="imprimirRelatorio()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Gerar Relatório PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="diagnosis-loading" id="diagnosis-loading" aria-live="polite" aria-hidden="true">
+    <div class="loading-card" role="status">
+      <div class="loading-kicker">Processamento Diagnóstico</div>
+      <div class="loading-steps">
+        <span>Analisando riscos ambientais, sociais e de governança</span>
+        <span>Calculando Índice de Risco Operacional · I-ESG</span>
+        <span>Gerando diagnóstico executivo</span>
+      </div>
+      <div class="loading-bar" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+    <div class="kpi-row kpi-row-4">
+    <div class="kpi-card kpi-hero">
+      <div class="kpi-lbl">Classificação</div>
+      <div class="kpi-val" id="iesgClassificacao">—</div>
+      <div class="kpi-sub">Faixa do índice ESG</div>
+    </div>
+        <div class="kpi-card kpi-support">
+      <div class="kpi-lbl">Ambiental</div>
+      <div class="kpi-val" id="ganhoAnual">—</div>
+      <div class="kpi-sub">Score E</div>
+    </div> 
+    <div class="kpi-card kpi-support">
+      <div class="kpi-lbl">Social</div>
+      <div class="kpi-val" id="roiPercentual">—</div>
+      <div class="kpi-sub">Score S</div>
+    </div>
+    <div class="kpi-card kpi-support">
+      <div class="kpi-lbl">Governança</div>
+      <div class="kpi-val" id="payback">—</div>
+      <div class="kpi-sub">Score G</div>
+    </div>
+  </div>
+  <!-- I-ESG · Índice de Risco Operacional · AFLOR (web) -->
+  <div class="ico-block" id="icoBlock">
+    <div class="ico-block-header">
+      <div class="ico-block-titles">
+        <div class="ico-block-label">Índice de Risco Operacional · I-ESG</div>
+      </div>
+      <div class="ico-score-wrap">
+        <div class="ico-score" id="icoScore">—</div>
+        <div class="ico-faixa" id="icoFaixa">—</div>
+      </div>
+    </div>
+    <div class="ico-bar-track" aria-hidden="true">
+      <div class="ico-bar-fill" id="icoBarFill" style="width:0%"></div>
+      <div class="ico-bar-ticks">
+        <span>0</span><span>25</span><span>50</span><span>75</span><span>100</span>
+      </div>
+    </div>
+    <div class="ico-rec-area">
+      <div class="ico-rec-titulo" id="icoTitulo">—</div>
+      <div class="ico-rec-texto" id="icoRecomendacao">—</div>
+    </div>
+    <div class="ico-metodologia">Análise orientativa sobre riscos em ESG e continuidade operacional.</div>
+  </div>
+
+  <div class="exec-report">
+    <div class="doc-header">
+      <div class="doc-header-left">
+        <div class="doc-header-brand">
+          <div class="doc-header-title">
+            <span class="aflor-logo">
+              <span class="aflor-text">aflor</span>
+            </span>
+          </div>
+          <div class="doc-header-sub">Índice de Risco Operacional · I-ESG</div>
+        </div>
+      </div>
+      <div class="doc-header-right">
+        <div class="doc-header-main-title">Inteligência ESG AFLOR</div>
+        <div class="doc-date" id="docDate">—</div>
+      </div>
+    </div>
+    <div class="doc-findings">
+      <div class="finding-item">
+        <div class="finding-label">Índice de Risco Operacional · I-ESG</div>
+        <div class="finding-val" id="rp_ganhoAnual">—</div>
+        <div class="finding-sub">Índice final</div>
+      </div>
+      <div class="finding-item">
+        <div class="finding-label">Ambiental</div>
+        <div class="finding-val" id="rp_roi">—</div>
+        <div class="finding-sub">Score_E</div>
+      </div>
+      <div class="finding-item">
+        <div class="finding-label">Social</div>
+        <div class="finding-val" id="rp_payback">—</div>
+        <div class="finding-sub">Score_S</div>
+      </div>
+      <div class="finding-item highlight">
+        <div class="finding-label">Governança</div>
+        <div class="finding-val" id="rp_colabs">—</div>
+        <div class="finding-sub">Score_G</div>
+      </div>
+    </div>
+    <div class="doc-body">
+      <div class="doc-section">
+        <div class="doc-section-title"><strong>Parâmetros do Diagnóstico I-ESG</strong></div>
+        <div class="doc-params">
+          <div class="param-item">
+            <div class="param-label">E1</div>
+            <div class="param-val" id="rp_pColabs">—</div>
+          </div>
+          <div class="param-item">
+            <div class="param-label">E2</div>
+            <div class="param-val" id="rp_pSalario">—</div>
+          </div>
+          <div class="param-item">
+            <div class="param-label">S1</div>
+            <div class="param-val" id="rp_pMinutos">—</div>
+          </div>
+          <div class="param-item">
+            <div class="param-label">S2</div>
+            <div class="param-val" id="rp_pFormularios">—</div>
+          </div>
+          <div class="param-item">
+            <div class="param-label">Classificação</div>
+            <div class="param-val" id="rp_pCustoPapel">R$ 1,30</div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-section">
+        <div class="doc-section-title"><strong>Resumo do Diagnóstico</strong></div>
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th class="col-item">Item de Custo</th>
+              <th class="col-data">Sem Automação</th>
+              <th class="col-data">Plataforma AFLOR</th>
+              <th class="col-data">Economia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>📄 Formulários em Papel</td>
+              <td id="rp_tCustoPapel">—</td>
+              <td class="zero-val">R$ 0,00</td>
+              <td class="saving-val" id="rp_tDifPapel">—</td>
+            </tr>
+            <tr>
+              <td>⏱ Custo de Tempo Improdutivo</td>
+              <td id="rp_tCustoTempo">—</td>
+              <td class="zero-val">Incluído</td>
+              <td class="saving-val" id="rp_tDifTempo">—</td>
+            </tr>
+            <tr>
+              <td>⚙️ Custos Operacionais Fixos</td>
+              <td id="rp_tCustoOp">—</td>
+              <td class="zero-val">Incluído</td>
+              <td class="saving-val" id="rp_tDifOp">—</td>
+            </tr>
+            <tr>
+              <td>📦 Plano <i>SaaS</i> Plataforma AFLOR</td>
+              <td class="zero-val">—</td>
+              <td class="cost-val" id="rp_tAFLOR">—</td>
+              <td class="zero-val">Investimento</td>
+            </tr>
+            <tr class="total-row">
+              <td>
+                <strong>Total Mensal</strong>
+                <span style="display:none" id="reportInvestimento"></span>
+                <span style="display:none" id="reportEconomia"></span>
+              </td>
+              <td id="rp_tTotalManual">—</td>
+              <td class="cost-val" id="rp_tTotalAFLOR">—</td>
+              <td class="saving-val" id="rp_tEconomia">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="doc-section analyze-box">
+        <div class="doc-section-title"> <strong>Diagnóstico Executivo</strong></div>
+        <div id="reportAnalysis"></div>
+      </div>
+      <div class="doc-section recommendation-box">
+        <div class="doc-section-title"> <strong>PLANO DE AÇÃO RECOMENDADO</strong></div>
+        <div class="doc-rec">
+          <div class="doc-rec-lead">
+            <span class="doc-rec-arrow">→</span>
+            <span class="doc-rec-action" id="rp_recTitle">Avançar com escopo definido</span>
+          </div>
+          <div class="doc-rec-body" id="rp_recBody"></div>
+        </div>
+      </div>
+    </div>
+    <div class="doc-footer">
+      <div class="doc-footer-info">
+        <span>Índice de Risco Operacional · I-ESG</span>
+        <span>Tecnologia e Inteligência Aplicada · AFLOR</span>
+        <span><a href="https://aflorsa.com.br/" target="_blank">aflorsa.com.br</a></span>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="print-prospect-layout">
+    <!-- 1. CABEÇALHO -->
+    <div class="pr-header">
+      <div class="pr-logo">
+        <span class="aflor-logo" style="font-size: 24px;">
+          <span class="aflor-text">aflor</span>
+        </span>
+      </div>
+      <div class="pr-title">
+        <h1>Inteligência ESG AFLOR</h1>
+        <p>
+          AFLOR · Inteligência Aplicada ·
+          <span id="pr_date">DATA DO RELATÓRIO</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- 2. CARD PRINCIPAL — Índice de Risco Operacional · I-ESG -->
+    <div class="pr-hero">
+      <span>Índice de Risco Operacional · I-ESG</span>
+      <h2 id="pr_ganhoAnual">0</h2>
+      <div class="pr-hero-classification" id="pr_heroClassificacao">—</div>
+      <p>Análise orientativa sobre riscos em ESG e continuidade operacional.</p>
+    </div>
+
+    <!-- 3. LINHA DE KPIs CONDENSADOS — 3 KPIs -->
+    <div class="pr-kpis pr-kpis-3">
+      <div class="pr-kpi">
+        <label>Ambiental</label>
+        <strong id="pr_roi">0%</strong>
+      </div>
+      <div class="pr-kpi">
+        <label>Social</label>
+        <strong id="pr_payback">0%</strong>
+      </div>
+      <div class="pr-kpi">
+        <label>Governança</label>
+        <strong id="pr_horas">0%</strong>
+      </div>
+    </div>
+
+    <!-- 4. BLOCO I-ESG + 5. PLANO DE AÇÃO RECOMENDADO -->
+    <div class="pr-recommendation">
+      <div class="pr-ico-inline">
+        <div class="pr-ico-inline-head">
+          <div></div>
+          <div class="pr-ico-score-box">
+            <span id="pr_icoScore">--</span>
+            <small id="pr_icoFaixa">--</small>
+          </div>
+        </div>
+        <div class="pr-ico-bar-track">
+          <div class="pr-ico-bar-fill" id="pr_icoBarFill"></div>
+        </div>
+      </div>
+      <div class="pr-diagnosis-compact">
+        <div class="pr-ico-rec-title" id="pr_icoTitulo">--</div>
+        <div class="pr-ico-rec-text" id="pr_icoRecomendacao">--</div>
+      </div>
+      <!-- Plano de Ação Recomendado — dinâmico via JS -->
+      <div class="pr-next-step">
+        <div class="pr-next-step-head">
+          <span class="pr-next-arrow">→</span>
+          <span class="pr-next-label">Plano de Ação Recomendado</span>
+        </div>
+        <div class="pr-next-title" id="pr_recTitlePdf">—</div>
+        <div class="pr-next-body" id="pr_recBodyPdf">—</div>
+      </div>
+      <!-- Campo oculto para compatibilidade com scripts existentes -->
+      <span style="display:none" id="pr_pdfRecText"></span>
+    </div>
+
+    <!-- 6. CTA -->
+    <div class="pr-schedule-center">
+      <a href="https://meetings.hubspot.com/analder" target="_blank" class="pr-btn-schedule-main">Agendar Reunião de Validação Técnica (15 min)</a>
+    </div>
+
+    <!-- 7. PARÂMETROS DO DIAGNÓSTICO — 2 colunas × 3 linhas -->
+    <div class="pr-params-block">
+      <div class="pr-params-title">Parâmetros do Diagnóstico</div>
+      <div class="pr-params-grid">
+        <div class="pr-param-item">
+          <span class="pr-param-label">Empresa</span>
+          <span class="pr-param-val" id="pdf-empresa">—</span>
+        </div>
+        <div class="pr-param-item">
+          <span class="pr-param-label">Nome completo</span>
+          <span class="pr-param-val" id="pdf-nome">—</span>
+        </div>
+        <div class="pr-param-item">
+          <span class="pr-param-label">E1 · Resíduos e insumos</span>
+          <span class="pr-param-val" id="pdf-salario">—</span>
+        </div>
+        <div class="pr-param-item">
+          <span class="pr-param-label">E2 · Energia, água e recursos</span>
+          <span class="pr-param-val" id="pdf-colaboradores">—</span>
+        </div>
+        <div class="pr-param-item">
+          <span class="pr-param-label">S1 · Segurança e saúde ocupacional</span>
+          <span class="pr-param-val" id="pdf-minutos">—</span>
+        </div>
+        <div class="pr-param-item">
+          <span class="pr-param-label">S2 · Contratos e relações de trabalho</span>
+          <span class="pr-param-val" id="pdf-formularios">—</span>
+        </div>
+        <div class="pr-param-item">
+          <span class="pr-param-label">G1 · Separação financeira</span>
+          <span class="pr-param-val" id="pdf-g1">—</span>
+        </div>
+        <div class="pr-param-item">
+          <span class="pr-param-label">G2 · Regras, contratos e responsabilidades</span>
+          <span class="pr-param-val" id="pdf-g2">—</span>
+        </div>
+        <div class="pr-param-item">
+          <span class="pr-param-label">G3 · Continuidade operacional</span>
+          <span class="pr-param-val" id="pdf-g3">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. FOOTER — institucional, minimalista -->
+    <div class="pr-footer-new">
+      <div class="pr-footer-line">Inteligência ESG AFLOR</div>
+      <div class="pr-footer-line pr-footer-sub">Tecnologia e Inteligência Aplicada · AFLOR</div>
+      <a href="https://aflorsa.com.br/" target="_blank" class="pr-footer-url">aflorsa.com.br</a>
+    </div>
+  </div>
+<script src="scripts.js"></script>
+</body>
+</html>
